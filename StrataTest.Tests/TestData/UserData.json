@@ -6,4 +6,4 @@
     "LoyaltyLevel": "Standard",
     "YearlySpend": "10"
   }
-]
+,{"Name":"customerName1","EmailAddress":"test1@test.com","Password":"password1","LoyaltyLevel":2,"YearlySpend":0.0}]
