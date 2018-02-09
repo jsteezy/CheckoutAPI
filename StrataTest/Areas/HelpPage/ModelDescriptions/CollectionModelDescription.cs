@@ -1,4 +1,4 @@
-namespace StrataTest.Areas.HelpPage.ModelDescriptions
+namespace StrataCheckout.Areas.HelpPage.ModelDescriptions
 {
     public class CollectionModelDescription : ModelDescription
     {

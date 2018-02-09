@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using StrataTest.Areas.HelpPage.ModelDescriptions;
-using StrataTest.Areas.HelpPage.Models;
+using StrataCheckout.Areas.HelpPage.ModelDescriptions;
+using StrataCheckout.Areas.HelpPage.Models;
 
-namespace StrataTest.Areas.HelpPage
+namespace StrataCheckout.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

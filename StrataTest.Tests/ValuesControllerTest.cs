@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StrataTest;
 using StrataTest.Controllers;
 
-namespace StrataTest.Tests.Controllers
+namespace StrataTest.Tests
 {
     [TestClass]
     public class ValuesControllerTest

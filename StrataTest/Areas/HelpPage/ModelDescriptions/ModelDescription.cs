@@ -1,6 +1,6 @@
 using System;
 
-namespace StrataTest.Areas.HelpPage.ModelDescriptions
+namespace StrataCheckout.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

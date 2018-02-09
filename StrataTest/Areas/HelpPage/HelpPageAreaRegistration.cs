@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace StrataTest.Areas.HelpPage
+namespace StrataCheckout.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

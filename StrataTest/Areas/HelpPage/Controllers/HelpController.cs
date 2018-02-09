@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using StrataTest.Areas.HelpPage.ModelDescriptions;
-using StrataTest.Areas.HelpPage.Models;
+using StrataCheckout.Areas.HelpPage.ModelDescriptions;
+using StrataCheckout.Areas.HelpPage.Models;
 
-namespace StrataTest.Areas.HelpPage.Controllers
+namespace StrataCheckout.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

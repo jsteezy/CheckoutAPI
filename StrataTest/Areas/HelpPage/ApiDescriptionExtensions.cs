@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace StrataTest.Areas.HelpPage
+namespace StrataCheckout.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

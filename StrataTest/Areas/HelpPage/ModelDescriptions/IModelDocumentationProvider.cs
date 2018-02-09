@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace StrataTest.Areas.HelpPage.ModelDescriptions
+namespace StrataCheckout.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

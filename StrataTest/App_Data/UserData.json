@@ -1,0 +1,9 @@
+﻿[
+  {
+    "Name": "customerName",
+    "EmailAddress": "test@test.com",
+    "Password": "password",
+    "LoyaltyLevel": "Standard",
+    "YearlySpend": "10"
+  }
+]
