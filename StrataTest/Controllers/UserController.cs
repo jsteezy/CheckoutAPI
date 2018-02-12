@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Http;
 using StrataTest.Interfaces;
 using StrataTest.Requests;
@@ -15,7 +16,7 @@ namespace StrataTest.Controllers
         }
 
         [HttpPost]
-        [Route("api/{user}/authenticate")]
+        [Route("api/authenticate/{emailAddress}/{")]
         public IHttpActionResult Authenticate([FromBody]AuthenticateUserRequest request)
         {
             try

@@ -17,13 +17,14 @@ namespace StrataTest.Tests
         {
             //Arrange
             var item = new Product { Price = 10, ProductId = 1234 };
-            var basket = new Basket { Products = new List<Product>()};
+            //var basket = new Basket { Products = new List<Product>()};
             var customer = new User { Name = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10, Basket = basket};
 
             //Act
             var repo = new UserRepository(DataLocation);
             var customerFromJson = repo.GetUserByName(customer.Name);
-            customerFromJson.AddItem(item);
+            var basket = customerFromJson.Basket; // .AddItem(item);
+            basket.AddItem(item);
 
             //Assert
             Assert.AreEqual(customer.Name, customerFromJson.Name);

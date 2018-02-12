@@ -4,6 +4,7 @@
     "EmailAddress": "test@test.com",
     "Password": "password",
     "LoyaltyLevel": "Standard",
-    "YearlySpend": "10"
+    "YearlySpend": 10,
+    "UserId":  1 
   }
 ]

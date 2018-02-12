@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using Newtonsoft.Json;
 using StrataTest.Interfaces;
 using StrataTest.Models;
@@ -45,14 +46,14 @@ namespace StrataTest.Repository
             }
         }
 
-        public bool Authenticate(string emailAddress, string password)
+        public User Authenticate(string emailAddress, string password)
         {
             var user = GetUserByEmail(emailAddress);
-            if (user == null)
+            if (user == null || user.Password != password)
             {
-                return false;
+                return null;
             }
-            return user.Password == password;
+            return HttpContext.Current.Session["customer"] as User;
         }
 
         private IEnumerable<User> ProcessJson()
