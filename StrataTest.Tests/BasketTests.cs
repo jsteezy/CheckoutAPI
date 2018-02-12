@@ -1,76 +1,36 @@
-﻿//using System.Collections.Generic;
-//using System.Linq;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using StrataTest.Controllers;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
+using StrataTest.Models;
+using StrataTest.Repository;
 
-//namespace StrataTest.Tests
-//{
-//    [TestClass]
-//    public class ValuesControllerTest
-//    {
-//        [TestMethod]
-//        public void Get()
-//        {
-//            // Arrange
-//            ValuesController controller = new ValuesController();
+namespace StrataTest.Tests
+{
+    [TestFixture]
+    public class BasketTests
+    {
+        //change to relative or other data store
+        private const string DataLocation = "C:/Users/j.stevens/source/repos/StrataTest/StrataTest.Tests/TestData/BasketData.json";
 
-//            // Act
-//            IEnumerable<string> result = controller.Get();
 
-//            // Assert
-//            Assert.IsNotNull(result);
-//            Assert.AreEqual(2, result.Count());
-//            Assert.AreEqual("value1", result.ElementAt(0));
-//            Assert.AreEqual("value2", result.ElementAt(1));
-//        }
+        [Test]
+        public void AddItemToBasket()
+        {
+            //Arrange
+            var item = new Product { Price = 10, ProductId = 1234 };
+            var basket = new Basket { Products = new List<Product>()};
+            var customer = new User { Name = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10, Basket = basket};
 
-//        [TestMethod]
-//        public void GetById()
-//        {
-//            // Arrange
-//            ValuesController controller = new ValuesController();
+            //Act
+            var repo = new UserRepository(DataLocation);
+            var customerFromJson = repo.GetUserByName(customer.Name);
+            customerFromJson.AddItem(item);
 
-//            // Act
-//            string result = controller.Get(5);
-
-//            // Assert
-//            Assert.AreEqual("value", result);
-//        }
-
-//        [TestMethod]
-//        public void Post()
-//        {
-//            // Arrange
-//            ValuesController controller = new ValuesController();
-
-//            // Act
-//            controller.Post("value");
-
-//            // Assert
-//        }
-
-//        [TestMethod]
-//        public void Put()
-//        {
-//            // Arrange
-//            ValuesController controller = new ValuesController();
-
-//            // Act
-//            controller.Put(5, "value");
-
-//            // Assert
-//        }
-
-//        [TestMethod]
-//        public void Delete()
-//        {
-//            // Arrange
-//            ValuesController controller = new ValuesController();
-
-//            // Act
-//            controller.Delete(5);
-
-//            // Assert
-//        }
-//    }
-//}
+            //Assert
+            Assert.AreEqual(customer.Name, customerFromJson.Name);
+            Assert.AreEqual(customer.EmailAddress, customerFromJson.EmailAddress);
+            Assert.AreEqual(customer.Password, customerFromJson.Password);
+            Assert.AreEqual(customer.LoyaltyLevel, customerFromJson.LoyaltyLevel);
+            Assert.AreEqual(customer.YearlySpend, customerFromJson.YearlySpend);
+        }
+    }
+}
