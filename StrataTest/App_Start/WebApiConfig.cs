@@ -16,13 +16,11 @@ namespace StrataTest
             // Web API configuration and services
 
             // Web API routes`
-            string jsonDataFolder = HttpContext.Current.Server.MapPath("~/bin");
+            string jsonDataFolder = HttpContext.Current.Server.MapPath("~/App_Data");
             var container = new UnityContainer();
             container.RegisterType<IUserRepository, UserRepository>(
-                new InjectionConstructor($"{jsonDataFolder}/Store/Users.json"));
+                new InjectionConstructor($"{jsonDataFolder}/UserData.json"));
             config.DependencyResolver = new Resolver(container);
-            config.MapHttpAttributeRoutes();
-
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

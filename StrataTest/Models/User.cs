@@ -8,7 +8,7 @@
         public string Password { get; set; }
         public CustomerLoyalty LoyaltyLevel { get; set; }
         public decimal YearlySpend { get; set; }
-        public Basket Basket { get; set; }
+        public int BasketId { get; set; }
         //TODO orders should be IEnumerable object contained by user
     }
 

@@ -29,17 +29,25 @@ namespace StrataTest.IOC
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return  _container.ResolveAll(serviceType);
+            }
+            catch (ResolutionFailedException)
+            {
+                return null;
+            }
         }
 
         public IDependencyScope BeginScope()
         {
-            throw new NotImplementedException();
+            var child = _container.CreateChildContainer();
+            return new Resolver(child);
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _container.Dispose();
         }
     }
 }

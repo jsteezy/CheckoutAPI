@@ -24,34 +24,34 @@ namespace StrataTest.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
         [HttpGet]
-        [Route("api/{user}/userByName/{userName}")]
+        [Route("api/userByName/{userName}")]
         public IHttpActionResult GetUserByName(string userName)
         {
             try
             {
                 return Ok(_user.GetUserByName(userName));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
         [HttpGet]
-        [Route("api/{user}/userByEmail/{userName}")]
+        [Route("api/userByEmail/{emailAddress}")]
         public IHttpActionResult GetUserByEmail(string emailAddress)
         {
             try
             {
                 return Ok(_user.GetUserByName(emailAddress));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
     }
