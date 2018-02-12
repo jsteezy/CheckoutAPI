@@ -48,5 +48,33 @@ namespace StrataTest.Tests
             Assert.AreEqual(newCustomer.YearlySpend, customerFromJson.YearlySpend);
 
         }
+
+        [Test]
+        public void AuthenticateUserWithCorrectPassword()
+        {
+            //Arrange
+            var customer = new User { Name = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10 };
+
+            //Act
+            var repo = new UserRepository(DataLocation);
+            var result = repo.Authenticate(customer.EmailAddress, customer.Password);
+
+            //Assert
+            Assert.True(result);
+        }
+
+        [Test]
+        public void DoNotAuthenticateUserWithIncorrectPassword()
+        {
+            //Arrange
+            var customer = new User { Name = "customerName", EmailAddress = "test@test.com", Password = "badPassword", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10 };
+
+            //Act
+            var repo = new UserRepository(DataLocation);
+            var result = repo.Authenticate(customer.EmailAddress, customer.Password);
+
+            //Assert
+            Assert.False(result);
+        }
     }
 }

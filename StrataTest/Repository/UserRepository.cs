@@ -45,13 +45,25 @@ namespace StrataTest.Repository
             }
         }
 
+        public bool Authenticate(string emailAddress, string password)
+        {
+            var user = GetUserByEmail(emailAddress);
+            if (user == null)
+            {
+                return false;
+            }
+            return user.Password == password;
+        }
 
-        //TODO make into generic extension method
         private IEnumerable<User> ProcessJson()
         {
             return JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(_dataSource));
         }
-
+        //TODO make into generic extension method
+        //public IEnumerable<object> ProcessJson(Type t)
+        //{
+        //    return JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(_dataSource));
+        //}
 
     }
 }

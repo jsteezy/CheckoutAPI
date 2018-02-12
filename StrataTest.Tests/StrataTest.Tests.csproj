@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserTests.cs" />
-    <Compile Include="ValuesControllerTest.cs" />
+    <Compile Include="BasketTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

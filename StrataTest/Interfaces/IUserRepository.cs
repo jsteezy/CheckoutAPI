@@ -9,5 +9,7 @@ namespace StrataTest.Interfaces
         User GetUserByEmail(string emailAddress);
 
         void AddUser(User user);
+
+        bool Authenticate(string emailAddress, string password);
     }
 }
