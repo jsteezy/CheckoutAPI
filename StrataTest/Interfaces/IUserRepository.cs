@@ -4,12 +4,10 @@ namespace StrataTest.Interfaces
 {
     public interface IUserRepository
     {
-        User GetUserByName(string userName);
+        UserModel GetUserByName(string userName);
 
-        User GetUserByEmail(string emailAddress);
+        UserModel GetUserByEmail(string emailAddress);
 
-        void AddUser(User user);
-
-        User Authenticate(string emailAddress, string password);
+        void AddUser(UserModel userModel);
     }
 }

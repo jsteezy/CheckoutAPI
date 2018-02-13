@@ -4,10 +4,10 @@ namespace StrataTest.Interfaces
 {
     public interface IBasketRepository
     {
-        Basket AddItem(int productId);
+        BasketModel AddItem(int productId);
 
-        Basket RemoveItem(int productId);
+        BasketModel RemoveItem(int productId);
 
-        void AddUser(User user);
+        void AddUser(UserModel userModel);
     }
 }

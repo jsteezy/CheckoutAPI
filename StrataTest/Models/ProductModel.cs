@@ -5,7 +5,7 @@ using System.Web;
 
 namespace StrataTest.Models
 {
-    public class Product
+    public class ProductModel
     {
         public int ProductId { get; set; }
         public decimal Price { get; set; }

@@ -1,59 +1,85 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using StrataTest.Interfaces;
+using StrataTest.Models;
+using StrataTest.Repository;
 using StrataTest.Requests;
 
 namespace StrataTest.Controllers
 {
+    [RoutePrefix("api/User")]
+
     public class UserController : ApiController
     {
-        private readonly IUserRepository _user;
+        private readonly IUserRepository _userRepository;
+        private AuthRepository _authRepository = null;
 
-        public UserController(IUserRepository user)
+        public UserController(IUserRepository userRepository)
         {
-            _user = user;
+            _userRepository = userRepository;
+            _authRepository = new AuthRepository();
+
         }
 
-        [HttpPost]
-        [Route("api/authenticate/{emailAddress}/{")]
-        public IHttpActionResult Authenticate([FromBody]AuthenticateUserRequest request)
+        [AllowAnonymous]
+        [Route("Authenticate")]
+        public async Task<IHttpActionResult> Authenticate(UserModel userModel)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return Ok(_user.Authenticate(request.EmailAddress, request.Password));
+                return BadRequest(ModelState);
             }
-            catch (Exception e)
+
+            IdentityUser result = await _authRepository.Authenticate(userModel.Name, userModel.Password);
+
+            if (result.Claims.Count  < 1)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ModelState);
             }
+
+            return Ok();
         }
+
 
         [HttpGet]
-        [Route("api/userByName/{userName}")]
+        [Route("userByName/{userName}")]
         public IHttpActionResult GetUserByName(string userName)
         {
             try
             {
-                return Ok(_user.GetUserByName(userName));
+                return Ok(_userRepository.GetUserByName(userName));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
         }
+
         [HttpGet]
-        [Route("api/userByEmail/{emailAddress}")]
+        [Route("userByEmail/{emailAddress}")]
         public IHttpActionResult GetUserByEmail(string emailAddress)
         {
             try
             {
-                return Ok(_user.GetUserByName(emailAddress));
+                return Ok(_userRepository.GetUserByName(emailAddress));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _authRepository.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

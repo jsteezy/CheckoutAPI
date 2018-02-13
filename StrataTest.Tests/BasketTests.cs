@@ -16,15 +16,15 @@ namespace StrataTest.Tests
         public void AddItemToBasket()
         {
             //Arrange
-            var item = new Product { Price = 10, ProductId = 1234 };
-            //var basket = new Basket { Products = new List<Product>()};
-            var customer = new User { Name = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10, Basket = basket};
+            var item = new ProductModel { Price = 10, ProductId = 1234 };
+            //var basket = new BasketModel { Products = new List<ProductModel>()};
+            var customer = new UserModel { Name = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10, BasketId = 1};
 
             //Act
-            var repo = new UserRepository(DataLocation);
-            var customerFromJson = repo.GetUserByName(customer.Name);
-            var basket = customerFromJson.Basket; // .AddItem(item);
-            basket.AddItem(item);
+            var userRepository = new UserRepository(DataLocation);
+            var customerFromJson = userRepository.GetUserByName(customer.Name);
+            //var basketRepository = new BasketRepository;
+            //basketRepository.AddItem(customerFromJson.UserId, item.ProductId);
 
             //Assert
             Assert.AreEqual(customer.Name, customerFromJson.Name);

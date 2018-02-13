@@ -17,21 +17,21 @@ namespace StrataTest.Repository
             _dataSource = dataSource;
         }
 
-        public User GetUserByName(string userName)
+        public UserModel GetUserByName(string userName)
         {
             var users = ProcessJson();
             return users.FirstOrDefault(x => x.Name == userName);
         }
 
-        public User GetUserByEmail(string emailAddress)
+        public UserModel GetUserByEmail(string emailAddress)
         {
             var users = ProcessJson();
             return users.FirstOrDefault(x => x.EmailAddress == emailAddress);
         }
 
-        public void AddUser(User user)
+        public void AddUser(UserModel userModel)
         {
-            if (GetUserByEmail(user.EmailAddress) == null)
+            if (GetUserByEmail(userModel.EmailAddress) == null)
             {
                 //Needs refactor!
                 using (var fileStream = new FileStream(_dataSource, FileMode.Open, FileAccess.ReadWrite))
@@ -41,29 +41,19 @@ namespace StrataTest.Repository
                 using (StreamWriter sw = File.AppendText(_dataSource))
                 {
 
-                    sw.WriteLine("," + JsonConvert.SerializeObject(user) + "]");
+                    sw.WriteLine("," + JsonConvert.SerializeObject(userModel) + "]");
                 }
             }
         }
 
-        public User Authenticate(string emailAddress, string password)
+        private IEnumerable<UserModel> ProcessJson()
         {
-            var user = GetUserByEmail(emailAddress);
-            if (user == null || user.Password != password)
-            {
-                return null;
-            }
-            return HttpContext.Current.Session["customer"] as User;
-        }
-
-        private IEnumerable<User> ProcessJson()
-        {
-            return JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(_dataSource));
+            return JsonConvert.DeserializeObject<List<UserModel>>(File.ReadAllText(_dataSource));
         }
         //TODO make into generic extension method
         //public IEnumerable<object> ProcessJson(Type t)
         //{
-        //    return JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(_dataSource));
+        //    return JsonConvert.DeserializeObject<List<UserModel>>(File.ReadAllText(_dataSource));
         //}
 
     }
