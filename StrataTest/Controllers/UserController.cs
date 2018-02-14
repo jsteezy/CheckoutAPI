@@ -16,12 +16,10 @@ namespace StrataTest.Controllers
     public class UserController : ApiController
     {
         private readonly IUserRepository _userRepository;
-        private AuthRepository _authRepository = null;
 
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _authRepository = new AuthRepository();
 
         }
 
@@ -34,7 +32,7 @@ namespace StrataTest.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await _authRepository.AddUser(userCommand);
+            IdentityResult result = await _userRepository.AddUser(userCommand);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -54,7 +52,7 @@ namespace StrataTest.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityUser result = await _authRepository.Authenticate(userCommand.UserName, userCommand.Password);
+            IdentityUser result = await _userRepository.Authenticate(userCommand.UserName, userCommand.Password);
 
             if (result == null)
             {
@@ -122,7 +120,7 @@ namespace StrataTest.Controllers
         {
             if (disposing)
             {
-                _authRepository.Dispose();
+                _userRepository.Dispose();
             }
             base.Dispose(disposing);
         }

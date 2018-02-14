@@ -1,44 +1,77 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Newtonsoft.Json;
 using StrataTest.Commands;
+using StrataTest.DbContext;
 using StrataTest.Domain;
 using StrataTest.Interfaces;
+using StrataTest.Models;
 
 namespace StrataTest.Repository
 {
-    public class UserRepository : IUserRepository
+
+    public class UserRepository : IDisposable, IUserRepository
     {
-        private readonly string _dataSource;
-        public UserRepository(string dataSource)
+        private AuthContext _ctx;
+        private UserManager<UserModel> _userManager;
+
+        public UserRepository()
         {
-            _dataSource = dataSource;
+            _ctx = new AuthContext();
+            _userManager = new UserManager<UserModel>(new UserStore<UserModel>(_ctx));
         }
 
-        public UserModel GetUserByName(string userName)
+        public async Task<IdentityResult> AddUser(UserCommand userCommand)
         {
-            var users = ProcessJson();
-            return users.FirstOrDefault(x => x.UserName == userName);
+            UserModel user = new UserModel
+            {
+                UserName = userCommand.UserName
+            };
+
+            var result = await _userManager.CreateAsync(user, userCommand.Password);
+
+            return result;
         }
 
-        public UserModel GetUserByEmail(string emailAddress)
+        public async Task<UserModel> Authenticate(string userName, string password)
         {
-            var users = ProcessJson();
-            return users.FirstOrDefault(x => x.Email == emailAddress);
+            UserModel user = await _userManager.FindAsync(userName, password);
+
+            return user;
         }
 
-        private IEnumerable<UserModel> ProcessJson()
+        public async Task<UserModel> GetUserByName(string userName)
         {
-            return JsonConvert.DeserializeObject<List<UserModel>>(File.ReadAllText(_dataSource));
-        }
-        //TODO make into generic extension method
-        //public IEnumerable<object> ProcessJson(Type t)
-        //{
-        //    return JsonConvert.DeserializeObject<List<UserCommand>>(File.ReadAllText(_dataSource));
-        //}
+            UserModel user = await _userManager.FindByNameAsync(userName);
 
+            return user;
+        }
+
+        public async Task<UserModel> GetUserByEmail(string email)
+        {
+            UserModel user = await _userManager.FindByEmailAsync(email);
+
+            return user;
+        }
+
+        public async Task<UserModel> GetUserById(string userId)
+        {
+            UserModel user = await _userManager.FindByIdAsync(userId);
+
+            return user;
+        }
+
+        public void Dispose(bool disposing)
+        {
+            _ctx.Dispose();
+            _userManager.Dispose();
+        }
+
+        public void Dispose()
+        {
+            _ctx?.Dispose();
+            _userManager?.Dispose();
+        }
     }
 }

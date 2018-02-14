@@ -22,7 +22,7 @@ namespace StrataTest.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            using (AuthRepository repo = new AuthRepository())
+            using (UserRepository repo = new UserRepository())
             {
                 IdentityUser user = await repo.Authenticate(context.UserName, context.Password);
 
