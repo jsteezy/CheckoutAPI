@@ -20,7 +20,7 @@ namespace StrataTest.Repository
         public UserModel GetUserByName(string userName)
         {
             var users = ProcessJson();
-            return users.FirstOrDefault(x => x.Name == userName);
+            return users.FirstOrDefault(x => x.UserName == userName);
         }
 
         public UserModel GetUserByEmail(string emailAddress)

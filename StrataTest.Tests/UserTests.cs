@@ -15,14 +15,14 @@ namespace StrataTest.Tests
         public void LoadUserDataFromStorage()
         {
             //Arrange
-            var customer = new UserModel { Name = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10};
+            var customer = new UserModel { UserName = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10};
 
            //Act
            var repo = new UserRepository(DataLocation);
-            var customerFromJson = repo.GetUserByName(customer.Name);
+            var customerFromJson = repo.GetUserByName(customer.UserName);
 
             //Assert
-            Assert.AreEqual(customer.Name, customerFromJson.Name);
+            Assert.AreEqual(customer.UserName, customerFromJson.UserName);
             Assert.AreEqual(customer.EmailAddress, customerFromJson.EmailAddress);
             Assert.AreEqual(customer.Password, customerFromJson.Password);
             Assert.AreEqual(customer.LoyaltyLevel, customerFromJson.LoyaltyLevel);
@@ -33,15 +33,15 @@ namespace StrataTest.Tests
         public void AddUserToStorage()
         {
             //Arrange
-            var newCustomer = new UserModel { Name = "customerName1", EmailAddress = "test1@test.com", Password = "password1", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 0 };
+            var newCustomer = new UserModel { UserName = "customerName1", EmailAddress = "test1@test.com", Password = "password1", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 0 };
 
             //Act
             var repo = new UserRepository(DataLocation);
             repo.AddUser(newCustomer);
 
             //Assert
-            var customerFromJson = repo.GetUserByName(newCustomer.Name);
-            Assert.AreEqual(newCustomer.Name, customerFromJson.Name);
+            var customerFromJson = repo.GetUserByName(newCustomer.UserName);
+            Assert.AreEqual(newCustomer.UserName, customerFromJson.UserName);
             Assert.AreEqual(newCustomer.EmailAddress, customerFromJson.EmailAddress);
             Assert.AreEqual(newCustomer.Password, customerFromJson.Password);
             Assert.AreEqual(newCustomer.LoyaltyLevel, customerFromJson.LoyaltyLevel);
@@ -53,7 +53,7 @@ namespace StrataTest.Tests
         public void AuthenticateUserWithCorrectPassword()
         {
             //Arrange
-            var customer = new UserModel { Name = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10 };
+            var customer = new UserModel { UserName = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10 };
 
             //Act
             var repo = new AuthRepository();
@@ -67,7 +67,7 @@ namespace StrataTest.Tests
         public void DoNotAuthenticateUserWithIncorrectPassword()
         {
             //Arrange
-            var customer = new UserModel { Name = "customerName", EmailAddress = "test@test.com", Password = "badPassword", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10 };
+            var customer = new UserModel { UserName = "customerName", EmailAddress = "test@test.com", Password = "badPassword", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10 };
 
             //Act
             var repo = new AuthRepository();

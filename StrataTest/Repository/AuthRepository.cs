@@ -19,21 +19,22 @@ namespace StrataTest.Repository
             _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
         }
 
-        //public async Task<IdentityResult> RegisterUser(UserModel userModel)
-        //{
-        //    IdentityUser user = new IdentityUser
-        //    {
-        //        UserName = userModel.Name
-        //    };
-
-        //    var result = await _userManager.CreateAsync(user, userModel.Password);
-
-        //    return result;
-        //}
-
-        public async Task<IdentityUser> Authenticate(string userName, string password)
+        public async Task<IdentityResult> AddUser(UserModel userModel)
         {
-            IdentityUser user = await _userManager.FindAsync(userName, password);
+            IdentityUser user = new IdentityUser
+            {
+                UserName = userModel.UserName
+
+            };
+
+            var result = await _userManager.CreateAsync(user, userModel.Password);
+
+            return result;
+        }
+
+        public async Task<IdentityUser> Authenticate(string name, string password)
+        {
+            IdentityUser user = await _userManager.FindAsync(name, password);
 
             return user;
         }

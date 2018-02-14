@@ -7,7 +7,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using StrataTest.Interfaces;
 using StrataTest.Models;
 using StrataTest.Repository;
-using StrataTest.Requests;
 
 namespace StrataTest.Controllers
 {
@@ -26,6 +25,26 @@ namespace StrataTest.Controllers
         }
 
         [AllowAnonymous]
+        [Route("Register")]
+        public async Task<IHttpActionResult> Register(UserModel userModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await _authRepository.AddUser(userModel);
+
+            IHttpActionResult errorResult = GetErrorResult(result);
+
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+            return Ok();
+        }
+
+        [AllowAnonymous]
         [Route("Authenticate")]
         public async Task<IHttpActionResult> Authenticate(UserModel userModel)
         {
@@ -34,13 +53,12 @@ namespace StrataTest.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityUser result = await _authRepository.Authenticate(userModel.Name, userModel.Password);
+            IdentityUser result = await _authRepository.Authenticate(userModel.UserName, userModel.Password);
 
-            if (result.Claims.Count  < 1)
+            if (result == null)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Could not find user");
             }
-
             return Ok();
         }
 
@@ -71,6 +89,32 @@ namespace StrataTest.Controllers
             {
                 return BadRequest(e.Message);
             }
+        }
+
+        private IHttpActionResult GetErrorResult(IdentityResult result)
+        {
+            if (result == null)
+            {
+                return InternalServerError();
+            }
+
+            if (!result.Succeeded)
+            {
+                if (result.Errors != null)
+                {
+                    foreach (string error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                return BadRequest(ModelState);
+            }
+            return null;
         }
 
         protected override void Dispose(bool disposing)

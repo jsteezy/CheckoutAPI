@@ -9,7 +9,7 @@ namespace StrataTest.DbContext
     public class AuthContext : IdentityDbContext<IdentityUser>
     {
         public AuthContext()
-            : base("RavenDb")
+            : base("AuthContext")
         {
 
         }

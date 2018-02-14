@@ -241,6 +241,11 @@
     <Compile Include="Interfaces\IBasketRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="IOC\Resolver.cs" />
+    <Compile Include="Migrations\201802140908140_setup.cs" />
+    <Compile Include="Migrations\201802140908140_setup.Designer.cs">
+      <DependentUpon>201802140908140_setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BasketModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -248,7 +253,6 @@
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Repository\AuthRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
-    <Compile Include="Requests\AuthenticateUserRequest.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -264,7 +268,11 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201802140908140_setup.resx">
+      <DependentUpon>201802140908140_setup.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\UserData.json" />
     <None Include="packages.config" />

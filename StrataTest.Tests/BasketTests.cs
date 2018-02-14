@@ -18,16 +18,16 @@ namespace StrataTest.Tests
             //Arrange
             var item = new ProductModel { Price = 10, ProductId = 1234 };
             //var basket = new BasketModel { Products = new List<ProductModel>()};
-            var customer = new UserModel { Name = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10, BasketId = 1};
+            var customer = new UserModel { UserName = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10, BasketId = 1};
 
             //Act
             var userRepository = new UserRepository(DataLocation);
-            var customerFromJson = userRepository.GetUserByName(customer.Name);
+            var customerFromJson = userRepository.GetUserByName(customer.UserName);
             //var basketRepository = new BasketRepository;
             //basketRepository.AddItem(customerFromJson.UserId, item.ProductId);
 
             //Assert
-            Assert.AreEqual(customer.Name, customerFromJson.Name);
+            Assert.AreEqual(customer.UserName, customerFromJson.UserName);
             Assert.AreEqual(customer.EmailAddress, customerFromJson.EmailAddress);
             Assert.AreEqual(customer.Password, customerFromJson.Password);
             Assert.AreEqual(customer.LoyaltyLevel, customerFromJson.LoyaltyLevel);
