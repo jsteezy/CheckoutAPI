@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using StrataTest.Domain;
+using StrataTest.Models;
 
 namespace StrataTest.DbContext
 {
@@ -13,5 +12,9 @@ namespace StrataTest.DbContext
         {
 
         }
+
+        public DbSet<UserModel> Users { get; set; }
+        public DbSet<BasketModel> Baskets { get; set; }
+        public DbSet<ProductModel> Products { get; set; }
     }
 }

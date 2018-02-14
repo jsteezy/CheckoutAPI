@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
-using StrataTest.Models;
+﻿using NUnit.Framework;
+using StrataTest.Commands;
+using StrataTest.Domain;
+using StrataTest.Enums;
 using StrataTest.Repository;
 
 namespace StrataTest.Tests
@@ -16,9 +17,9 @@ namespace StrataTest.Tests
         public void AddItemToBasket()
         {
             //Arrange
-            var item = new ProductModel { Price = 10, ProductId = 1234 };
-            //var basket = new BasketModel { Products = new List<ProductModel>()};
-            var customer = new UserModel { UserName = "customerName", EmailAddress = "test@test.com", Password = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10, BasketId = 1};
+            var item = new ProductCommand { Price = 10, ProductId = 1234 };
+            //var basket = new BasketCommand { Products = new List<ProductCommand>()};
+            var customer = new UserModel { UserName = "customerName", Email = "test@test.com", PasswordHash = "password", LoyaltyLevel = CustomerLoyalty.Standard, YearlySpend = 10, BasketId = 1};
 
             //Act
             var userRepository = new UserRepository(DataLocation);
@@ -28,8 +29,8 @@ namespace StrataTest.Tests
 
             //Assert
             Assert.AreEqual(customer.UserName, customerFromJson.UserName);
-            Assert.AreEqual(customer.EmailAddress, customerFromJson.EmailAddress);
-            Assert.AreEqual(customer.Password, customerFromJson.Password);
+            Assert.AreEqual(customer.Email, customerFromJson.Email);
+            Assert.AreEqual(customer.PasswordHash, customerFromJson.PasswordHash);
             Assert.AreEqual(customer.LoyaltyLevel, customerFromJson.LoyaltyLevel);
             Assert.AreEqual(customer.YearlySpend, customerFromJson.YearlySpend);
         }

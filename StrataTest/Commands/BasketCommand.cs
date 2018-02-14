@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using StrataTest.Models;
 
-namespace StrataTest.Models
+namespace StrataTest.Commands
 {
-    public class BasketModel
+    public class BasketCommand
     {
         public int BasketId { get; set; }
         public decimal TotalCost { get; set; }

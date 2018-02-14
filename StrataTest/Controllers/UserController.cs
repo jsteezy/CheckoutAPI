@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using StrataTest.Commands;
 using StrataTest.Interfaces;
 using StrataTest.Models;
 using StrataTest.Repository;
@@ -26,14 +27,14 @@ namespace StrataTest.Controllers
 
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(UserModel userModel)
+        public async Task<IHttpActionResult> Register(UserCommand userCommand)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await _authRepository.AddUser(userModel);
+            IdentityResult result = await _authRepository.AddUser(userCommand);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -46,14 +47,14 @@ namespace StrataTest.Controllers
 
         [AllowAnonymous]
         [Route("Authenticate")]
-        public async Task<IHttpActionResult> Authenticate(UserModel userModel)
+        public async Task<IHttpActionResult> Authenticate(UserCommand userCommand)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IdentityUser result = await _authRepository.Authenticate(userModel.UserName, userModel.Password);
+            IdentityUser result = await _authRepository.Authenticate(userCommand.UserName, userCommand.Password);
 
             if (result == null)
             {

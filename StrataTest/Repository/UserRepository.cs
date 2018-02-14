@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
+using StrataTest.Commands;
+using StrataTest.Domain;
 using StrataTest.Interfaces;
-using StrataTest.Models;
 
 namespace StrataTest.Repository
 {
@@ -26,24 +27,7 @@ namespace StrataTest.Repository
         public UserModel GetUserByEmail(string emailAddress)
         {
             var users = ProcessJson();
-            return users.FirstOrDefault(x => x.EmailAddress == emailAddress);
-        }
-
-        public void AddUser(UserModel userModel)
-        {
-            if (GetUserByEmail(userModel.EmailAddress) == null)
-            {
-                //Needs refactor!
-                using (var fileStream = new FileStream(_dataSource, FileMode.Open, FileAccess.ReadWrite))
-                {
-                    fileStream.SetLength(fileStream.Length - 1);
-                }
-                using (StreamWriter sw = File.AppendText(_dataSource))
-                {
-
-                    sw.WriteLine("," + JsonConvert.SerializeObject(userModel) + "]");
-                }
-            }
+            return users.FirstOrDefault(x => x.Email == emailAddress);
         }
 
         private IEnumerable<UserModel> ProcessJson()
@@ -53,7 +37,7 @@ namespace StrataTest.Repository
         //TODO make into generic extension method
         //public IEnumerable<object> ProcessJson(Type t)
         //{
-        //    return JsonConvert.DeserializeObject<List<UserModel>>(File.ReadAllText(_dataSource));
+        //    return JsonConvert.DeserializeObject<List<UserCommand>>(File.ReadAllText(_dataSource));
         //}
 
     }

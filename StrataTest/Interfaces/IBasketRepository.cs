@@ -8,6 +8,5 @@ namespace StrataTest.Interfaces
 
         BasketModel RemoveItem(int productId);
 
-        void AddUser(UserModel userModel);
     }
 }

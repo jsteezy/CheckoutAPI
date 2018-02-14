@@ -9,7 +9,7 @@ namespace StrataTest.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(StrataTest.DbContext.AuthContext context)

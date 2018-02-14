@@ -1,4 +1,4 @@
-﻿using StrataTest.Models;
+﻿using StrataTest.Domain;
 
 namespace StrataTest.Interfaces
 {
@@ -8,6 +8,5 @@ namespace StrataTest.Interfaces
 
         UserModel GetUserByEmail(string emailAddress);
 
-        void AddUser(UserModel userModel);
     }
 }
